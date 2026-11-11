@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DietDetective – Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login_signup.css">
+</head>
+<body>
+
+  <!-- Tab state (CSS-only switch between Login and Sign Up). Teammate can replace with JS later. -->
+  <input type="radio" name="auth-tab" id="tab-login" class="tab-state" checked>
+  <input type="radio" name="auth-tab" id="tab-signup" class="tab-state">
+
+  <!-- Reusable SVG icons (hidden). Referenced below with <use href="#id"> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#f3d98b"/><stop offset="1" stop-color="#c8963e"/>
+      </linearGradient>
+      <linearGradient id="leafGreen" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7cbf5a"/><stop offset="1" stop-color="#1f6b3a"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Brand logo: leaves + fork + spoon -->
+    <symbol id="logo" viewBox="0 0 120 120">
+      <path d="M8 62C10 38 32 30 56 44c-4 24-22 42-48 18z" fill="url(#leafGreen)"/>
+      <path d="M112 62C110 38 88 30 64 44c4 24 22 42 48 18z" fill="url(#leafGreen)"/>
+      <path d="M12 60C28 52 40 54 54 46" stroke="#d9f0c4" stroke-width="1.4" fill="none" opacity=".6"/>
+      <path d="M60 112V70" stroke="#4d9a4a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M40 8v22c0 6 4 9 8 9s8-3 8-9V8M48 8v31M48 39v26" stroke="url(#gold)" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <ellipse cx="78" cy="30" rx="11" ry="16" fill="url(#gold)"/>
+      <path d="M78 46v26" stroke="url(#gold)" stroke-width="3" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="i-home" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></g></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.5 3.6-7 8-7s8 2.5 8 7"/></g></symbol>
+    <symbol id="i-login" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-5"/><path d="M3 12h11m-4-4 4 4-4 4"/></g></symbol>
+    <symbol id="i-user-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10" cy="8" r="4"/><path d="M3 21c0-4.5 3-7 7-7M18 14v7M14.5 17.5h7"/></g></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></g></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+
+    <!-- Diet icons -->
+    <symbol id="i-vegan" viewBox="0 0 24 24"><g fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round"><path d="M5 19C4 9 10 4 20 4c0 10-5 16-15 15z"/><path d="M5 19 15 9"/></g></symbol>
+    <symbol id="i-wheat" viewBox="0 0 24 24"><g fill="none" stroke="url(#gold)" stroke-width="1.5" stroke-linecap="round"><path d="M12 22V6M12 6c-3 0-3-3 0-4 3 1 3 4 0 4zM12 11c-4 0-5-3-4-4 3 0 4 2 4 4zm0 0c4 0 5-3 4-4-3 0-4 2-4 4zM12 16c-4 0-5-3-4-4 3 0 4 2 4 4zm0 0c4 0 5-3 4-4-3 0-4 2-4 4z"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" fill="url(#gold)"/></symbol>
+    <symbol id="i-dumbbell" viewBox="0 0 24 24"><g fill="none" stroke="url(#gold)" stroke-width="2" stroke-linecap="round"><path d="M3 9v6M6.5 6v12M17.5 6v12M21 9v6M6.5 12h11"/></g></symbol>
+
+    <!-- Google "G" -->
+    <symbol id="i-google" viewBox="0 0 24 24">
+      <path fill="#EA4335" d="M12 10.2v3.9h5.5c-.2 1.3-1.6 3.8-5.5 3.8a6 6 0 0 1 0-12c1.9 0 3.1.8 3.8 1.5l2.6-2.5A9.5 9.5 0 0 0 12 2.5a9.5 9.5 0 1 0 0 19c5.5 0 9.1-3.9 9.1-9.3 0-.6-.1-1.1-.2-1.6z"/>
+      <path fill="#4285F4" d="M21.1 12.2c0-.6-.1-1.1-.2-1.6H12v3.6h5.5z" opacity=".0"/>
+    </symbol>
+
+    <!-- Botanical leaf illustration (golden outline) -->
+    <symbol id="leaf-art" viewBox="0 0 200 260">
+      <g fill="none" stroke="url(#gold)" stroke-width="1.3" stroke-linecap="round">
+        <path d="M100 250C20 190 10 90 100 8c90 82 80 182 0 242z"/>
+        <path d="M100 250V20M100 210 55 160M100 210l45-50M100 160 60 110M100 160l40-50M100 110 72 70M100 110l28-40"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- Decorative background (all purely visual) -->
+  <div class="bg" aria-hidden="true">
+    <!-- Right-side blurred background photo (behind everything) -->
+    <img src="images/food-image2.png" alt="" class="food food--right">
+
+    <!-- Left-side food photo (salad bowl) -->
+    <img src="images/food-image1.png" alt="" class="food food--left">
+
+    <svg class="wave wave--top" viewBox="0 0 1600 260" preserveAspectRatio="none">
+      <defs><linearGradient id="wg1" x1="0" x2="1"><stop offset="0" stop-color="#0b3a34"/><stop offset="1" stop-color="#2b5d52"/></linearGradient></defs>
+      <path d="M0 0H1020C900 60 800 120 640 170 440 230 220 180 0 110Z" fill="url(#wg1)"/>
+      <path d="M1020 0C960 70 820 130 700 160" fill="none" stroke="#d8a95a" stroke-width="3"/>
+    </svg>
+
+    <svg class="wave wave--bottom-left" viewBox="0 0 700 200" preserveAspectRatio="none">
+      <path d="M0 40C140 110 330 150 640 200H0Z" fill="#d6b27a" opacity=".85"/>
+    </svg>
+
+    <svg class="wave wave--right" viewBox="0 0 520 560" preserveAspectRatio="none">
+      <path d="M520 40C400 50 250 120 180 260 110 400 0 470 0 560H520Z" fill="#0f4a45"/>
+      <path d="M520 150C420 170 330 230 270 300 220 360 140 380 80 400 200 470 380 470 520 400Z" fill="#c99a52"/>
+      <path d="M520 190C440 200 360 250 310 320" fill="none" stroke="#f1d38e" stroke-width="2"/>
+    </svg>
+
+    <svg class="leaf leaf--top-left"><use href="#leaf-art"/></svg>
+    <svg class="leaf leaf--bottom-right"><use href="#leaf-art"/></svg>
+
+    <div class="dots"></div>
+  </div>
+
+  <!-- ===== Navigation ===== -->
+  <header class="navbar">
+    <a href="#" class="brand" aria-label="DietDetective home">
+      <svg class="brand__icon"><use href="#logo"/></svg>
+      <span class="brand__name">DietDetective</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="#" class="nav-link"><svg class="icon"><use href="#i-home"/></svg>Home</a></li>
+        <li><a href="#" class="nav-link"><svg class="icon"><use href="#i-search"/></svg>Explore</a></li>
+        <li><label for="tab-signup" class="nav-btn"><svg class="icon"><use href="#i-user"/></svg>Sign Up</label></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="page">
+    <section class="card" aria-label="Login">
+
+      <!-- Left: branding -->
+      <div class="brand-panel">
+        <svg class="brand-panel__logo" aria-hidden="true"><use href="#logo"/></svg>
+        <h1 class="brand-panel__title">
+          <span class="brand-panel__welcome">Welcome to</span>
+          <span class="brand-panel__name">Diet<span class="gold">Detective</span></span>
+        </h1>
+        <p class="brand-panel__tagline">Your Diet Isn't a Limitation. It's Your Identity</p>
+        <span class="gold-line gold-line--short" aria-hidden="true"></span>
+
+        <ul class="diets">
+          <li class="diet"><span class="diet__ring"><svg><use href="#i-vegan"/></svg></span>Vegan</li>
+          <li class="diet"><span class="diet__ring"><svg><use href="#i-wheat"/></svg></span>Gluten-Free</li>
+          <li class="diet"><span class="diet__ring"><svg><use href="#i-moon"/></svg></span>Halal</li>
+          <li class="diet"><span class="diet__ring"><svg><use href="#i-dumbbell"/></svg></span>Keto</li>
+        </ul>
+
+        <p class="brand-panel__desc">Discover Your Taste, Respect <br> Your Diet, Enjoy Every Bite</p>
+        <span class="gold-swoosh" aria-hidden="true"></span>
+      </div>
+
+      <!-- Right: form -->
+      <div class="form-panel">
+        <div class="tabs">
+          <label for="tab-login" class="tab"><svg class="icon"><use href="#i-login"/></svg>Login</label>
+          <label for="tab-signup" class="tab"><svg class="icon"><use href="#i-user-plus"/></svg>Sign Up</label>
+        </div>
+
+        <form class="login-form" action="#" method="post" novalidate>
+          <div class="field">
+            <label for="email" class="field__label"><svg class="icon"><use href="#i-mail"/></svg>Email Address</label>
+            <input type="email" id="email" name="email" class="field__input" placeholder="Enter your email" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="password" class="field__label"><svg class="icon"><use href="#i-lock"/></svg>Password</label>
+            <div class="field__wrap">
+              <input type="password" id="password" name="password" class="field__input" placeholder="Enter your password" autocomplete="current-password">
+              <button type="button" class="field__toggle" aria-label="Show or hide password"><svg class="icon"><use href="#i-eye-off"/></svg></button>
+            </div>
+          </div>
+
+          <!-- CAPTCHA look-alike (visual only) -->
+          <div class="captcha">
+            <input type="checkbox" id="robot" name="robot" class="captcha__box">
+            <label for="robot" class="captcha__label">I'm not a robot</label>
+            <div class="captcha__brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 1 8 5l-3 .5 4 4 2-5-2 .8A11 11 0 0 0 12 1z" fill="#4a90e2"/><path d="M12 21a9 9 0 0 1-8-5l3-.5-4-4-2 5 2-.8A11 11 0 0 0 12 23z" fill="#9aa0a6"/></svg>
+              <span>reCAPTCHA</span><small>Privacy - Terms</small>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary" id="login-btn">Login <svg class="icon"><use href="#i-arrow"/></svg></button>
+
+          <div class="divider"><span>or</span></div>
+
+          <button type="button" class="btn btn--google" id="google-btn">
+            <svg class="icon icon--google"><use href="#i-google"/></svg>Continue with Google
+          </button>
+
+          <div class="form-links">
+            <a href="#" class="link">Forgot Password?</a>
+            <p>Don't have an account? <label for="tab-signup" class="link link--bold">Sign Up</label></p>
+          </div>
+        </form>
+
+        <!-- ===== Sign Up form (shown when the Sign Up tab is selected) ===== -->
+        <form class="signup-form" action="#" method="post" novalidate>
+          <div class="field">
+            <label for="su-name" class="field__label"><svg class="icon"><use href="#i-user"/></svg>Full Name</label>
+            <input type="text" id="su-name" name="name" class="field__input" placeholder="Enter your full name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="su-email" class="field__label"><svg class="icon"><use href="#i-mail"/></svg>Email Address</label>
+            <input type="email" id="su-email" name="email" class="field__input" placeholder="Enter your email" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="su-password" class="field__label"><svg class="icon"><use href="#i-lock"/></svg>Password</label>
+            <input type="password" id="su-password" name="password" class="field__input" placeholder="Create a password" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="su-confirm" class="field__label"><svg class="icon"><use href="#i-lock"/></svg>Confirm Password</label>
+            <input type="password" id="su-confirm" name="confirm" class="field__input" placeholder="Repeat your password" autocomplete="new-password">
+          </div>
+
+          <button type="submit" class="btn btn--primary" id="signup-btn">Create Account <svg class="icon"><use href="#i-arrow"/></svg></button>
+
+          <div class="divider"><span>or</span></div>
+
+          <button type="button" class="btn btn--google" id="google-signup-btn">
+            <svg class="icon icon--google"><use href="#i-google"/></svg>Sign up with Google
+          </button>
+
+          <div class="form-links form-links--center">
+            <p>Already have an account? <label for="tab-login" class="link link--bold">Login</label></p>
+          </div>
+        </form>
+
+      </div>
+    </section>
+
+    <aside class="slogan">
+      <p class="slogan__text">Healthy Food.<br>Better Choices.</p>
+      <span class="gold-swoosh gold-swoosh--slogan" aria-hidden="true"></span>
+    </aside>
+  </main>
+
+</body>
+</html>
