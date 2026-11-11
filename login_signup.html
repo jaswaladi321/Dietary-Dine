@@ -224,6 +224,172 @@
       <span class="gold-swoosh gold-swoosh--slogan" aria-hidden="true"></span>
     </aside>
   </main>
+  <script>
+    let selectedDiet = "Vegan"; // default
 
+    // Highlight selected dietary tag on click
+    document.querySelectorAll('.diet').forEach(item => {
+      item.style.cursor = "pointer";
+      item.addEventListener('click', function() {
+        document.querySelectorAll('.diet').forEach(d => d.style.border = "none");
+        this.style.border = "2px solid #f3d98b"; // gold highlight
+        selectedDiet = this.textContent.trim();
+      });
+    });
+
+    // Password Show/Hide Toggle
+    document.querySelectorAll('.field__toggle').forEach(toggleBtn => {
+      toggleBtn.addEventListener('click', function() {
+        const inputField = this.parentElement.querySelector('input');
+        if (inputField.type === 'password') {
+          inputField.type = 'text';
+        } else {
+          inputField.type = 'password';
+        }
+      });
+    });
+
+    // Handle Sign Up Form
+    document.querySelector('.signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('su-name').value.trim();
+      const email = document.getElementById('su-email').value.trim();
+      const password = document.getElementById('su-password').value.trim();
+      const confirmPass = document.getElementById('su-confirm').value.trim();
+
+      if (!name || !email || !password) {
+        alert('Please fill in all fields!');
+        return;
+      }
+      if (password !== confirmPass) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem('dietUsers')) || [];
+      if (users.some(u => u.email === email)) {
+        alert('An account with this email already exists!');
+        return;
+      }
+
+      users.push({ name, email, password, preference: selectedDiet });
+      localStorage.setItem('dietUsers', JSON.stringify(users));
+
+      alert('✅ Account created successfully!');
+      document.getElementById('tab-login').checked = true;
+    });
+
+    // Handle Login Form & Interactive Dashboard
+    document.querySelector('.login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      let users = JSON.parse(localStorage.getItem('dietUsers')) || [];
+      const validUser = users.find(u => u.email === email && u.password === password);
+
+      if (validUser) {
+        loadDashboard(validUser);
+      } else {
+        alert('❌ Invalid email or password.');
+      }
+    });
+
+    // ==========================================
+    // 1. "Continue with Google" Simulation
+    // ==========================================
+    document.getElementById('google-btn').addEventListener('click', function() {
+      // Simulate Google Sign-In prompt
+      const googleEmail = prompt("Enter your Google Account email to continue:");
+      if (!googleEmail) return;
+
+      let users = JSON.parse(localStorage.getItem('dietUsers')) || [];
+      let googleUser = users.find(u => u.email === googleEmail);
+
+      // If user doesn't exist yet via Google, automatically register them
+      if (!googleUser) {
+        googleUser = { 
+          name: googleEmail.split('@')[0], 
+          email: googleEmail, 
+          password: 'google-oauth-secure', 
+          preference: 'Vegan' 
+        };
+        users.push(googleUser);
+        localStorage.setItem('dietUsers', JSON.stringify(users));
+        alert('✨ Google account linked and signed in successfully!');
+      } else {
+        alert('🎉 Signed in successfully with Google as ' + googleUser.name + '!');
+      }
+
+      loadDashboard(googleUser);
+    });
+
+    // ==========================================
+    // 2. "Forgot Password?" Functionality
+    // ==========================================
+    document.querySelector('.form-links a.link').addEventListener('click', function(e) {
+      e.preventDefault();
+      const resetEmail = prompt("Enter your registered account email to reset password:");
+      if (!resetEmail) return;
+
+      let users = JSON.parse(localStorage.getItem('dietUsers')) || [];
+      let userIndex = users.findIndex(u => u.email === resetEmail);
+
+      if (userIndex !== -1) {
+        const newPassword = prompt("Enter your new password:");
+        if (newPassword) {
+          users[userIndex].password = newPassword;
+          localStorage.setItem('dietUsers', JSON.stringify(users));
+          alert('🔒 Password successfully updated! You can now log in with your new password.');
+        }
+      } else {
+        alert('❌ No account found with this email address.');
+      }
+    });
+
+    // ==========================================
+    // Helper: Dashboard Loader Function
+    // ==========================================
+    function loadDashboard(validUser) {
+      const formPanel = document.querySelector('.form-panel');
+      formPanel.innerHTML = `
+        <div style="padding: 20px; color: #fff; text-align: left;">
+          <h2>🎉 Welcome back, ${validUser.name}!</h2>
+          <p style="color: #f3d98b; margin-top: 5px;">Your Saved Diet: <strong>${validUser.preference || 'Vegan'}</strong></p>
+          <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
+          
+          <h3>📍 Find Restaurants in जालंधर</h3>
+          <div style="margin-top: 15px;">
+            <input type="text" id="search-city" placeholder="Enter city (e.g., जालंधर)" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #4d9a4a; background: #0b3a34; color: #fff; margin-bottom: 10px;">
+            <button id="find-btn" style="width: 100%; padding: 12px; border-radius: 8px; background: #c8963e; color: #fff; border: none; font-weight: bold; cursor: pointer;">Search Recommendations</button>
+          </div>
+          <div id="results-box" style="margin-top: 20px; max-height: 200px; overflow-y: auto;"></div>
+        </div>
+      `;
+
+      document.getElementById('find-btn').addEventListener('click', function() {
+        const restaurants = [
+          { name: "Green Leaf Cafe", city: "जालंधर", tag: "Vegan", rating: 4.5 },
+          { name: "Pure Crust Bakery", city: "जालंधर", tag: "Gluten-Free", rating: 4.2 },
+          { name: "Mughlai Spice", city: "जालंधर", tag: "Halal", rating: 4.7 },
+          { name: "FitFuel Kitchen", city: "जालंधर", tag: "Keto", rating: 4.6 }
+        ];
+
+        const resultsBox = document.getElementById('results-box');
+        const matched = restaurants.filter(r => r.tag.toLowerCase() === (validUser.preference || 'vegan').toLowerCase());
+
+        if (matched.length > 0) {
+          resultsBox.innerHTML = matched.map(r => `
+            <div style="background: rgba(255,255,255,0.05); padding: 10px; border-radius: 6px; margin-bottom: 8px;">
+              <strong>📍 ${r.name}</strong> (${r.city})<br>
+              <small style="color: #f3d98b;">Diet: ${r.tag} | ⭐ Rating: ${r.rating}</small>
+            </div>
+          `).join('');
+        } else {
+          resultsBox.innerHTML = `<p style="color: #ff8888;">No restaurants found matching your diet preference in this area.</p>`;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
