@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carb Away | Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --forest: #1B4332;
+      --sage: #95B8A0;
+      --cream: #FAF9F6;
+      --white: #FFFFFF;
+      --text: #1f2a24;
+      --muted: #5f6d66;
+      --line: rgba(27, 67, 50, 0.12);
+      --shadow: 0 20px 40px rgba(20, 45, 35, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Figtree', sans-serif;
+      background: linear-gradient(135deg, #cfcfcf 0%, #dddddd 100%);
+      color: var(--text);
+    }
+
+    .auth-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+    }
+
+    .auth-layout {
+      width: min(1100px, 100%);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    .auth-visual {
+      position: relative;
+      min-height: 620px;
+      background: linear-gradient(135deg, rgba(27,67,50,0.8), rgba(27,67,50,0.3)),
+                  url('assets/images/food-image-1.png') center/cover no-repeat;
+    }
+
+    .auth-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.25));
+    }
+
+    .visual-content {
+      position: absolute;
+      inset: auto 0 0 0;
+      z-index: 1;
+      padding: 2.5rem;
+      color: #fff;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .visual-content h1 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.1;
+      max-width: 12ch;
+      color: #fff;
+    }
+
+    .auth-form-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      background: var(--white);
+    }
+
+    .auth-card {
+      width: min(420px, 100%);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--forest);
+    }
+
+    .brand img {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    .brand h2 {
+      margin: 0;
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      color: var(--forest);
+    }
+
+    .auth-card p {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .auth-form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .form-field label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--forest);
+    }
+
+    .form-field input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #f7faf7;
+      font: inherit;
+      color: var(--text);
+    }
+
+    .form-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .remember {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .remember input {
+      accent-color: var(--forest);
+    }
+
+    .link {
+      color: var(--forest);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      padding: 0.9rem 1.25rem;
+      font: 600 0.96rem 'Figtree', sans-serif;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--forest);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #123a2d;
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 0.5rem 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .divider::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: var(--line);
+      z-index: 0;
+    }
+
+    .divider span {
+      position: relative;
+      z-index: 1;
+      background: var(--white);
+      padding: 0 0.75rem;
+    }
+
+    .social-btn {
+      width: 100%;
+      background: #f5f7f5;
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .small-text {
+      margin-top: 1.25rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .auth-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-visual {
+        min-height: 280px;
+      }
+    }
+  </style>
+</head>
+<body class="auth-page">
+  <div class="auth-layout">
+    <section class="auth-visual" aria-label="Healthy food banner">
+      <div class="visual-content">
+        <span class="eyebrow">Carb Away</span>
+        <h1>Good food, better choices.</h1>
+      </div>
+    </section>
+
+    <section class="auth-form-panel">
+      <div class="auth-card">
+        <div class="brand">
+          <img src="assets/images/carb-away-logo.jpeg" alt="Carb Away logo" />
+          <h2>Carb Away</h2>
+        </div>
+        <p>Welcome back! Sign in to discover restaurants that match your diet.</p>
+
+        <form class="auth-form">
+          <div class="form-field">
+            <label for="email">Email address</label>
+            <input id="email" type="email" placeholder="you@example.com" />
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password</label>
+            <input id="password" type="password" placeholder="Enter your password" />
+          </div>
+
+          <div class="form-row">
+            <label class="remember"><input type="checkbox" /> Remember me</label>
+            <a class="link" href="#">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+        <div class="divider"><span>or continue with</span></div>
+        <button type="button" class="btn social-btn">Continue with Google</button>
+
+        <p class="small-text">New here? <a class="link" href="index.html">Create an account</a></p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
