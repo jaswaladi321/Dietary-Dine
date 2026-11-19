@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DietDetective – Discover Your Taste, Respect Your Diet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="./index.css" />
+</head>
+<body>
+  <header class="navbar">
+    <a href="./index.html" class="brand">Diet<span>Detective</span></a>
+    <nav class="nav-actions" aria-label="Primary navigation">
+      <a href="#explore" class="nav-link">Explore</a>
+      <a href="./login_signup.html" class="btn-gold">Login / Sign Up</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <p class="hero-eyebrow">Your Diet Isn't a Limitation. It's Your Identity</p>
+    <h1>Discover Your Taste,<br /><em>Respect Your Diet</em></h1>
+    <p>
+      Find dining spots and meals tailored to Vegan, Gluten-Free, Halal, and Keto lifestyles without guesswork.
+    </p>
+  </section>
+
+  <section id="explore" aria-label="Filter restaurants">
+    <div class="filter-bar">
+      <label for="cityFilter" class="filter-label">
+        City:
+        <select id="cityFilter" class="city-select">
+          <option value="all">All Cities</option>
+          <option value="Chandigarh">Chandigarh</option>
+          <option value="Jalandhar">Jalandhar</option>
+          <option value="Shimla">Shimla</option>
+        </select>
+      </label>
+
+      <div class="diet-pills" role="group" aria-label="Dietary preferences">
+        <button type="button" class="diet-pill active" data-diet="all">All</button>
+        <button type="button" class="diet-pill" data-diet="Vegan">Vegan</button>
+        <button type="button" class="diet-pill" data-diet="Gluten-Free">Gluten-Free</button>
+        <button type="button" class="diet-pill" data-diet="Halal">Halal</button>
+        <button type="button" class="diet-pill" data-diet="Keto">Keto</button>
+      </div>
+    </div>
+
+    <div id="spotGrid" class="grid"></div>
+  </section>
+
+  <script src="./index.js" defer></script>
+</body>
+</html>
