@@ -50,6 +50,11 @@ ul { list-style: none; }
 .btn-light { background: var(--cream); color: var(--forest); }
 .btn-light:hover { background: var(--sage); transform: translateY(-2px); }
 .btn-outline { border-color: currentColor; background: transparent; color: inherit; }
+.category-btn.active {
+    background: var(--white);
+    color: var(--accent);
+    border-color: var(--white);
+}
 .btn-small { padding: .45rem 1.1rem; }
 
 /* ---------- 4. NAVBAR ---------- */
@@ -86,6 +91,7 @@ ul { list-style: none; }
 .category-card h3 { color: var(--white); margin: 1rem 0 .4rem; }
 .category-card p { font-size: .95rem; margin-bottom: 1.3rem; opacity: .92; }
 .category-card .btn-outline:hover { background: var(--white); color: var(--accent); }
+.category-card .btn-outline.is-selected { background: var(--white); color: var(--accent); }
 .cat-icon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 14px;
   background: rgba(255,255,255,.18); font-size: 1.5rem; }
 .cat-gluten { --accent: var(--c-gluten); background: linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url('assets/images/glutenfree.jpeg') center / cover; }
