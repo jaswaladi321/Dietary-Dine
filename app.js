@@ -787,6 +787,15 @@ function handleDemoGoogle() {
     }, 1000);
 }
 
+// Attach Google buttons to the demo handler
+function setupGoogleButtons() {
+    const googleBtn = document.getElementById("google-btn");
+    const googleSignupBtn = document.getElementById("google-signup-btn");
+
+    if (googleBtn) googleBtn.addEventListener("click", handleDemoGoogle);
+    if (googleSignupBtn) googleSignupBtn.addEventListener("click", handleDemoGoogle);
+}
+
 // -------------------------------------------
 // 8. INITIALIZATION (Run when page loads)
 // -------------------------------------------
@@ -807,6 +816,7 @@ function init() {
     setupReviewForm();
     setupReviewButtons();
     displayReviews();
+    setupGoogleButtons();
 
     refreshRestaurantDisplay();
 
