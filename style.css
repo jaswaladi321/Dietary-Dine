@@ -48,6 +48,15 @@ ul { list-style: none; }
 .btn-primary { background: var(--forest); color: var(--white); }
 .btn-primary:hover { background: #12301f; transform: translateY(-2px); }
 .btn-light { background: var(--cream); color: var(--forest); }
+.btn-outline { background: transparent; border-color: var(--white); color: var(--white); }
+.btn-outline:hover { background: var(--white); color: var(--accent); }
+
+/* Active state for category filter buttons */
+.category-btn.active {
+    background: var(--white);
+    color: var(--accent);
+    border-color: var(--white);
+}
 .btn-light:hover { background: var(--sage); transform: translateY(-2px); }
 .btn-outline { border-color: currentColor; background: transparent; color: inherit; }
 .btn-small { padding: .45rem 1.1rem; }
